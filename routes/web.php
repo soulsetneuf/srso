@@ -40,3 +40,6 @@ Route::get('/contacto', function () {
 Route::get('/reservas', function () {
     return view('reservas');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
