@@ -11,6 +11,18 @@
 |
 */
 
+Route::resource('cliente','ClienteController');
+Route::resource('servicio','ServicioController');
+Route::resource('menu','MenuController');
+Route::resource('contacto','ContactoController');
+Route::resource('reserva','ReservaController');
+/*Route::get('/contacto', function () {
+    return view('contacto');
+});*/
+/*Route::get('/reservas', function () {
+    return view('reservas');
+});*/
+
 Route::get('/', function () {
     return view('index');
 });
@@ -33,13 +45,12 @@ Route::get('/catering', function () {
     return view('catering');
 });
 
+/*
 Route::get('/contacto', function () {
     return view('contacto');
-});
+});*/
 
-Route::get('/reservas', function () {
-    return view('reservas');
-});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

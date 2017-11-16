@@ -40,8 +40,10 @@
 <body>
 <div class="container">
     <div class="content">
-        <div class="title">Be right back.</div>
+        <div class="title">Acceso denegado</div>
+        <div class="title"><a href="{{ route('home') }}">Vover a la página principal</a></div>
     </div>
 </div>
 </body>
 </html>
+

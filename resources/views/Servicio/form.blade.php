@@ -1,0 +1,1 @@
+@include(config("options.input_text"),["text_input"=>"nombre","text_label"=>"Nombre"])

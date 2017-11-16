@@ -19,7 +19,7 @@
 	<div class="row">
 		<div class="col-md-12">
 		<a href= "index.php">
-			<img alt="baner" src="img/baner.png" width="100%" height="120%">
+			<img alt="baner" src="{{asset("img/baner.png")}}" width="100%" height="120%">
 		</a>
 		</div>
 	</div>
