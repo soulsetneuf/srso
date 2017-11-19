@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MenuCreateRequest extends FormRequest
+class ImagenUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class MenuCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            "file"=>"required|mimes:jpeg,bmp,png",
+            //
         ];
     }
 }

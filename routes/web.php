@@ -16,6 +16,10 @@ Route::resource('servicio','ServicioController');
 Route::resource('menu','MenuController');
 Route::resource('contacto','ContactoController');
 Route::resource('reserva','ReservaController');
+Route::resource('imagen','ImagenController');
+
+//Route::post('/imagen/', 'ImagenController@storeImage')->name('menu.store.imagen');
+//Route::controller('imagen', 'ImagenController');
 /*Route::get('/contacto', function () {
     return view('contacto');
 });*/

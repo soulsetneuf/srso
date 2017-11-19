@@ -19,6 +19,8 @@ class CreateMenusTable extends Migration
             $table->string("nombre");
             $table->float('precio_unitario');
             $table->string("descripcion");
+            $table->integer("id_imagen")->unsigned();
+            $table->foreign('id_imagen')->references('id')->on('imagenes') ->onDelete('cascade');
             $table->integer("id_servicio")->unsigned();
             $table->foreign('id_servicio')->references('id')->on('servicios') ->onDelete('cascade');
             $table->timestamps();

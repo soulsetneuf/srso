@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        {!! Form::open(['route' => $path_controller.'.store', 'method' => 'post', "files"=>true,"class"=>"form-horizontal"]) !!}
+        {!! Form::open(['route' => $path_controller.'.store', 'method' => 'post', "files"=>true,"class"=>"form-horizontal "]) !!}
         <fieldset>
             @include($path_view.".form")
             <div class="form-group">

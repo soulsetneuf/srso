@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
+        Barryvdh\Debugbar\ServiceProvider::class,
         //Mine Providers
         \App\Providers\InputFormServiceProvider::class,
     ],
@@ -231,6 +232,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'InputForm' => \App\Facades\InputForm::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

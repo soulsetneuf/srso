@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MenuCreateRequest;
-use App\Http\Requests\MenuUpdateRequest;
+use App\Facades\InputForm;
+use App\Http\Requests\ImagenCreateRequest;
+use App\Http\Requests\ImagenUpdateRequest;
 use App\Imagen;
-use App\Menu;
-use Carbon\Carbon;
+use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 
-class MenuController extends Controller
+class ImagenController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    var $path_view="Menu";
-    var $path_controller="menu";
+    var $path_view="Imagen";
+    var $path_controller="imagen";
     public function index(Request $request)
     {
-        $menus=Menu::paginate(10);
+        $menus=Imagen::paginate(10);
         return \View::make($this->path_view.'.index',
             [
                 "obj"=>$menus,
@@ -46,27 +47,47 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MenuCreateRequest $request)
+    public function store(ImagenCreateRequest $request)
     {
-            $fileInput=$request->file('file');
-            $fileName=date('Y_m_d_H_i_s_').random_int(1, 1000);
+        $fileInput=$request->file('file');
+        if(Input::hasFile('file'))
+        {
+            $fileName=Hash::make($fileInput->getClientOriginalName());
             $path=public_path().'\\uploads\\';
             $fileType=$fileInput->guessExtension();
             $fileSize=$fileInput->getClientSize()/1024;
+
             $imagen=new Imagen();
             $imagen->nombre=$fileName;
             $imagen->ruta=$path;
             $imagen->tipo=$fileType;
             $imagen->tamaño=$fileSize;
-            $id="";
             if($fileInput->move($path,$fileName.'.'.$fileInput->guessExtension()))
             {
-                $id=$imagen->save();
-                $id=$imagen->id;
-                $request->merge([ 'id_imagen' => $id]);
+                $imagen->save();
             }
-        Menu::create($request->all());
-        return redirect()->route($this->path_controller.".index");
+        }
+    }
+    public function storeimagen()
+    {
+        $fileInput=Input::file('file');
+        if(Input::hasFile('file'))
+        {
+            $fileName=Hash::make($fileInput->getClientOriginalName());
+            $path=public_path("uploads\\");
+            $fileType=$fileInput->guessExtension();
+            $fileSize=$fileInput->getClientSize()/1024;
+
+            $imagen=new Imagen();
+            $imagen->nombre=$fileName;
+            $imagen->ruta=$path;
+            $imagen->tipo=$fileType;
+            $imagen->tamaño=$fileSize;
+            if($fileInput->move($path,$fileName.'.'.$fileInput->guessExtension()))
+            {
+                $imagen->save();
+            }
+        }
     }
 
     /**
@@ -77,9 +98,9 @@ class MenuController extends Controller
      */
     public function show($id)
     {
-        $this->notFound(Menu::find($id));
+        $this->notFound(Imagen::find($id));
         $this->permiso($this->path_controller.'.'.'show');
-        return \View::make($this->path_view.'.show',["obj"=>Menu::find($id),"path_controller"=>$this->path_controller,"path_view"=>$this->path_view]);
+        return \View::make($this->path_view.'.show',["obj"=>Imagen::find($id),"path_controller"=>$this->path_controller,"path_view"=>$this->path_view]);
     }
     /**
      * Show the form for editing the specified resource.
@@ -89,7 +110,7 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        return \View::make($this->path_view.'.edit',["value"=>Menu::find($id),"path_controller"=>$this->path_controller,"path_view"=>$this->path_view]);
+        return \View::make($this->path_view.'.edit',["value"=>Imagen::find($id),"path_controller"=>$this->path_controller,"path_view"=>$this->path_view]);
     }
 
     /**
@@ -99,9 +120,9 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MenuUpdateRequest $request, $id)
+    public function update(ImagenUpdateRequest $request, $id)
     {
-        Menu::find($id)->fill($request->all())->save();
+        Imagen::find($id)->fill($request->all())->save();
         return redirect()->route($this->path_controller.".index");
     }
 
@@ -114,7 +135,7 @@ class MenuController extends Controller
     public function destroy($id)
     {
         $this->permiso($this->path_controller.'.'.'destroy');
-        Menu::destroy($id);
+        Imagen::destroy($id);
         return redirect($this->path_controller);
     }
     public function redirectIndex()
