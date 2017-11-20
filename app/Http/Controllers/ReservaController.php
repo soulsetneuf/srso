@@ -6,6 +6,7 @@ use App\Http\Requests\ReservaCreateRequest;
 use App\Http\Requests\ReservaUpdateRequest;
 use App\Reserva;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservaController extends Controller
 {
@@ -18,7 +19,7 @@ class ReservaController extends Controller
     var $path_controller="reserva";
     public function index(Request $request)
     {
-        $reservas=Reserva::paginate(10);
+        $reservas=Reserva::orderBy('created_at', 'desc')->paginate(10);
         return \View::make($this->path_view.'.index',
             [
                 "obj"=>$reservas,
@@ -46,7 +47,9 @@ class ReservaController extends Controller
     public function store(ReservaCreateRequest $request)
     {
         Reserva::create($request->all());
-        return redirect()->route($this->path_controller.".index");
+            return redirect()->route($this->path_controller.".index");
+            session()->flash('mensaje', 'Datos insertados correctamente');
+            return redirect()->route($this->path_controller.".create");
     }
 
     /**

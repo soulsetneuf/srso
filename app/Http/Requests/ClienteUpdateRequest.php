@@ -21,10 +21,23 @@ class ClienteUpdateRequest extends FormRequest
      *
      * @return array
      */
+
     public function rules()
     {
         return [
-            //
+            'nombres'=>'required|min:2|max:150|regex:/(^([a-zA-Z[:space:]]+)?$)/u',
+            'apellido_paterno'=>'required|min:2|max:150|regex:/(^([a-zA-Z[:space:]]+)?$)/u',
+            'apellido_materno'=>'required|min:2|max:150|regex:/(^([a-zA-Z[:space:]]+)?$)/u',
+            'email'=>'required|email',
+            'telefono'=>'numeric|min:1'
+        ];
+    }
+    public function messages() {
+        return [
+            'nombres.regex'=>'Solo espacios y letras',
+            'apellido_paterno.regex'=>'Solo espacios y letras',
+            'apellido_materno.regex'=>'Solo espacios y letras',
+            'telefono.min'=>'Solo números positivos',
         ];
     }
 }

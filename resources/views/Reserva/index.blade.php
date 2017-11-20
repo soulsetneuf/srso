@@ -24,11 +24,13 @@
                                     <th>Hora</th>
                                     <th>Cantidad</th>
                                     <th>Descripcion</th>
+                                    @if(Auth::check())
                                     <th>Anticipo</th>
                                     <th>Saldo</th>
                                     <th>Total</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody class="no-border-y">
@@ -40,13 +42,15 @@
                                         <td>{{ $row->hora }}</td>
                                         <td>{{ $row->cantidad }}</td>
                                         <td>{{ $row->descripcion }}</td>
+                                        @if(Auth::check())
                                         <td>{{ $row->anticipo }}</td>
                                         <td>{{ $row->saldo }}</td>
-                                        <td>{{ $row->total }}</td>
+                                        <td>{{ $row->anticipo+$row->saldo }}</td>
                                         <td>{{ $row->estado }}</td>
                                         <td>
                                             @include(config("options.button_group_actions"),["id"=>$row->id])
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>

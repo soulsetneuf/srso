@@ -21,7 +21,40 @@ class MenuController extends Controller
     var $path_controller="menu";
     public function index(Request $request)
     {
-        $menus=Menu::paginate(10);
+        $menus=Menu::orderBy('created_at', 'desc')->paginate(10);
+        return \View::make($this->path_view.'.index',
+            [
+                "obj"=>$menus,
+                "path_controller"=>$this->path_controller,
+                "path_view"=>$this->path_view
+            ]
+        );
+    }
+    public function almuerzos()
+    {
+        $menus=Menu::where("id_servicio","1")->orderBy('created_at', 'desc')->paginate(10);
+        return \View::make($this->path_view.'.index',
+            [
+                "obj"=>$menus,
+                "path_controller"=>$this->path_controller,
+                "path_view"=>$this->path_view
+            ]
+        );
+    }
+    public function desayunos()
+    {
+        $menus=Menu::where("id_servicio","2")->orderBy('created_at', 'desc')->paginate(10);
+        return \View::make($this->path_view.'.index',
+            [
+                "obj"=>$menus,
+                "path_controller"=>$this->path_controller,
+                "path_view"=>$this->path_view
+            ]
+        );
+    }
+    public function especiales()
+    {
+        $menus=Menu::where("id_servicio","3")->orderBy('created_at', 'desc')->paginate(10);
         return \View::make($this->path_view.'.index',
             [
                 "obj"=>$menus,
@@ -101,6 +134,30 @@ class MenuController extends Controller
      */
     public function update(MenuUpdateRequest $request, $id)
     {
+        if($request->file('file')==null)
+        {
+            Menu::find($id)->fill($request->all())->save();
+            return redirect()->route($this->path_controller.".index");
+
+        }
+
+        $fileInput=$request->file('file');
+        $fileName=date('Y_m_d_H_i_s_').random_int(1, 1000);
+        $path=public_path().'\\uploads\\';
+        $fileType=$fileInput->guessExtension();
+        $fileSize=$fileInput->getClientSize()/1024;
+        $imagen=new Imagen();
+        $imagen->nombre=$fileName;
+        $imagen->ruta=$path;
+        $imagen->tipo=$fileType;
+        $imagen->tamaño=$fileSize;
+        $id_="";
+        if($fileInput->move($path,$fileName.'.'.$fileInput->guessExtension()))
+        {
+            $id_=$imagen->save();
+            $id_=$imagen->id;
+            $request->merge([ 'id_imagen' => $id_]);
+        }
         Menu::find($id)->fill($request->all())->save();
         return redirect()->route($this->path_controller.".index");
     }

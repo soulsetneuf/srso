@@ -24,7 +24,11 @@ class ReservaCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'cantidad'=>'numeric|min:0',
+            'descripcion'=>'required',
+            'anticipo'=>'numeric|min:0',
+            'saldo'=>'numeric|min:0',
         ];
     }
 }
+

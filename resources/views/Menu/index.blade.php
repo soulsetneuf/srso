@@ -72,78 +72,83 @@
             padding: 0;
         }
     </style>
-    <div class="container">
-        <div class="row row-margin-bottom">
-            @foreach($obj as $i => $row)
-                <div class="col-md-5 no-padding lib-item" data-category="view">
-                    <div class="lib-panel">
-                        <div class="row box-shadow">
-                            <div class="col-md-6">
-                                <img class="lib-img-show" src="{{asset("uploads")."/".$row->imagen->ruta_completa}}">
-                            </div>
-                            <div class="col-md-6">
-                                <div class="lib-row lib-header">
-                                    {{$row->nombre}}
-                                    <div class="lib-header-seperator"></div>
-                                </div>
-                                <div class="lib-row lib-desc">
-                                    {{$row->descripcion}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-1"></div>
-            @endforeach
-        </div>
-    </div>
 
-    <div class="card">
-        <div class="card-body">
-            <div class="block-flat">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            @include(config("options.button_generic"),["action"=>"create","text"=>"Nuevo menu"])
+    @if(Auth::check())
+        <div class="card">
+            <div class="card-body">
+                <div class="block-flat">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                @include(config("options.button_generic"),["action"=>"create","text"=>"Nuevo menu"])
+                            </div>
                         </div>
-                    </div>
-                    <div class="content">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead class="no-border">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Precio unitario</th>
-                                    <th>Descripción</th>
-                                    <th>Servicio</th>
-                                    <th>Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody class="no-border-y">
-                                @foreach($obj as $i => $row)
+                        <div class="content">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="no-border">
                                     <tr>
-                                        <td>{{ (($obj->currentPage() - 1 ) * $obj->perPage() ) + $i + 1 }}</td>
-                                        <td>{{ $row->nombre }}</td>
-                                        <td>{{ $row->precio_unitario }}</td>
-                                        <td>{{ $row->descripcion }}</td>
-                                        <td>{{ $row->servicio->nombre }}</td>
-                                        <td>
-                                            @include(config("options.button_group_actions"),["id"=>$row->id])
-                                        </td>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Precio unitario</th>
+                                        <th>Descripción</th>
+                                        <th>Servicio</th>
+                                        <th>Acciones</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody class="no-border-y">
+                                    @foreach($obj as $i => $row)
+                                        <tr>
+                                            <td>{{ (($obj->currentPage() - 1 ) * $obj->perPage() ) + $i + 1 }}</td>
+                                            <td>{{ $row->nombre }}</td>
+                                            <td>{{ $row->precio_unitario }}</td>
+                                            <td>{{ $row->descripcion }}</td>
+                                            <td>{{ $row->servicio->nombre }}</td>
+                                            <td>
+                                                @include(config("options.button_group_actions"),["id"=>$row->id])
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {!! $obj->render() !!}
+                        <div class="posts">
+                            Existen {{ $obj->total() }} registros
                         </div>
                     </div>
-                    {!! $obj->render() !!}
-                    <div class="posts">
-                        Existen {{ $obj->total() }} registros
-                    </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
+    @else
+        <div class="container">
+            <div class="row row-margin-bottom">
+                @foreach($obj as $i => $row)
+                    <div class="col-md-5 no-padding lib-item" data-category="view">
+                        <div class="lib-panel">
+                            <div class="row box-shadow">
+                                <div class="col-md-6">
+                                    <img class="lib-img-show" src="{{asset("uploads")."/".$row->imagen->ruta_completa}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="lib-row lib-header">
+                                        {{$row->servicio->nombre}} <br/>
+                                        {{$row->nombre}}
+                                        <div class="lib-header-seperator"></div>
+                                    </div>
+                                    <div class="lib-row lib-desc">
+                                        Precio: {{$row->precio_unitario}}<br/>
+                                        Descripción:{{$row->descripcion}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                @endforeach
+            </div>
+        </div>
+    @endif
 @endsection

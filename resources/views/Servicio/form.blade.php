@@ -1,1 +1,1 @@
-@include(config("options.input_text"),["text_input"=>"nombre","text_label"=>"Nombre"])
+@include(config("options.input_text"),["text_input"=>"nombre","text_label"=>"Nombre","placeholder"=>"Ejemplo: Almuerzo"])

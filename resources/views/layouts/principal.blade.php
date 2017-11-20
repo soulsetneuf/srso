@@ -36,54 +36,7 @@
                     <a class="navbar-brand" href="index.php">Restaurant</a>
                 </div>
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<strong
-                                        class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="desayuno">Desayunos</a>
-                                </li>
-                                <li>
-                                    <a href="almuerzo">Almuerzos</a>
-                                </li>
-                                <li>
-                                    <a href="especial">Platos Especiales</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Servicio<strong
-                                        class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="gastronomia">Gastronomia</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="catering">Catering</a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="informacion">Información</a>
-                        </li>
-                        <li>
-                            <a href="contacto">Contacto</a>
-                        </li>
-
-                        <li>
-                            <a href="reservas">Reservas</a>
-                        </li>
-                        <li>
-                            <a href="#">Administrador</a>
-                        </li>
-                    </ul>
-
-                </div>
+                @include('layouts.menus.cliente')
 
             </nav>
         </div>

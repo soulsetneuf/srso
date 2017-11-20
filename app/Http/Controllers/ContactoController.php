@@ -6,6 +6,7 @@ use App\Contacto;
 use App\Http\Requests\ContactoCreateRequest;
 use App\Http\Requests\ContactoUpdateRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContactoController extends Controller
 {
@@ -63,7 +64,13 @@ class ContactoController extends Controller
     public function store(ContactoCreateRequest $request)
     {
         Contacto::create($request->all());
-        return redirect()->route($this->path_controller.".index");
+        if(Auth::check())
+            return redirect()->route($this->path_controller.".index");
+        else
+        {
+            session()->flash('mensaje', 'Datos insertados correctamente');
+            return redirect()->route($this->path_controller.".create");
+        }
     }
 
     /**

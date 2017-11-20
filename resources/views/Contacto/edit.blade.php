@@ -5,5 +5,7 @@
         @include(config("options.breadcrumb_li"),["class"=>"active","page"=>"edit","id"=>$value->id,"title"=>"Editar datos"])
     </ol>
     <br>
-    @include(config("options.form_edit"))
+    @if(Auth::check())
+        @include(config("options.form_edit"))
+    @endif
 @endsection

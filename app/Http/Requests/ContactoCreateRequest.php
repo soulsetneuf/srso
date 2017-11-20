@@ -24,7 +24,14 @@ class ContactoCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nombre_completo'=>'required|min:2|max:150|regex:/(^([a-zA-Z[:space:]]+)?$)/u',
+            'email'=>'required|email',
+            'descripcion'=>'required',
+        ];
+    }
+    public function messages() {
+        return [
+            'nombre_completo.regex'=>'Solo espacios y letras',
         ];
     }
 }

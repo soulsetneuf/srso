@@ -24,7 +24,12 @@ class ServicioUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nombre'=>'required|regex:/(^([a-zA-Z[:space:]]+)?$)/u',
+        ];
+    }
+    public function messages() {
+        return [
+            'nombre.regex'=>'Solo espacios y letras',
         ];
     }
 }

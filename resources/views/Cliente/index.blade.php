@@ -22,7 +22,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nombre completo</th>
+                                    @if(Auth::check())
                                     <th>Acciones</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody class="no-border-y">
@@ -30,9 +32,11 @@
                                     <tr>
                                         <td>{{ (($obj->currentPage() - 1 ) * $obj->perPage() ) + $i + 1 }}</td>
                                         <td>{{ $row->nombre_completo }}</td>
+                                        @if(Auth::check())
                                         <td>
                                             @include(config("options.button_group_actions"),["id"=>$row->id])
                                         </td>
+                                            @endif
                                     </tr>
                                 @endforeach
                                 </tbody>

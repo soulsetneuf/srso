@@ -4,6 +4,7 @@
         Contacto
     </ol>
     <br>
+    @if(Auth::check())
     <div class="card">
         <div class="card-body">
             <div class="block-flat">
@@ -52,4 +53,5 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection

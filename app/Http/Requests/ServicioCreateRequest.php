@@ -24,7 +24,13 @@ class ServicioCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nombre'=>'required|unique:servicios|regex:/(^([a-zA-Z[:space:]]+)?$)/u',
+        ];
+    }
+    public function messages() {
+        return [
+            'nombre.regex'=>'Solo espacios y letras',
+            'nombre.unique'=>'El nombre ya ha sido registrado',
         ];
     }
 }
